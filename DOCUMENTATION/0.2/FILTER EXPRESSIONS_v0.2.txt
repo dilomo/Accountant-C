@@ -1,0 +1,76 @@
+				 
+				   FILTER EXPRESSIONS IN ACCOUNTANT
+					    version 0.2
+			
+	Filter expressions help you display DB information for current date or according to some rules you assign. For example if you have more than 1000 records in your database and you want to find which incomes are, say, 24.5.2006 are greater than 253.33 units( $, euros ...) the only thing you can do is to use filter expression. For the example above the expression is:
+	
+	Example 1. 
+	'#DATE = 24.5.2006  #VALUE > 253.33'.
+	
+However there are some restrictions and priority rules that must be mentioned.
+	
+	There are four parameter types available to set in a filter expression: #ID, #DATE, #VALUE and #TYPE. These can also be combined together to form more complex statements (up to 20 parameters). The parameter type (e.g. #ID, #TYPE ...) and the parameter value (different for each param. type; see below) can be separated by equality signs such as > < = , all forming six combinations:
+	
+	<  - less then
+	>  - greater then
+	=  - equal to
+	<= - less then or equal to
+	>= - greater then or equal to
+	<> - not equal
+	
+	Only for strings (gives error if used with filter type different from #TYPE):
+	~  - contains
+	!~ - not contains
+	
+Here is the the table describing what values can be passed to the parameter value:
+
+	#ID <signs> [non negative number from 0 to 4,294,967,295 representing the record's index] 
+	
+	#DATE <signs> [valid date in the formats Day-Month-Year;  Year-Month-Day]
+	
+	#VALUE <signs> [non negative number representing valid currency unit]
+	
+	#TYPE <signs> "[string not longer than 100 chars]"
+	
+	You can leave as much white spaces between the parameter type, the <signs> and the parameter value as you wish: 
+	
+	Example 2.
+	'    #ID   <23654#VALUE <> 200   #TYPE =  "Bank deposit" #ID>20'. 
+	
+The #TYPE value is the string inside the quotes (the quote signs are not considered value). In the above example there is one more tricky part - the two #ID parameters. Do they conflict each other? Read below.
+	
+	Its very important to know exactly what are the priority rules in one filter expression. While being parsed each parameter of the filter is checked for conflicts with the already added parameters. If there is no conflict (as in Example 2.for #ID because 23654 > 20) the param. pair parsed is added to the list with parameters. But in the following preview:
+	
+	Example 3.
+	'#ID >= 1000 #VALUE < 200 #ID>20 #VALUE > 200'
+	
+happens the following:
+	1. Check for conflicts. Add Param. (ID >= 1000)
+	2. Check for conflicts. Add Param. (VALUE < 200)
+	3. Check for conflicts (ID>20).
+	4. Conflict found and old Param. (ID >= 1000) is disabled. Add Param. (ID > 20).
+	5. Check for conflicts (VALUE > 200).
+	6. Conflict found and old Param. (VALUE < 200) is disabled. Add Param. (VALUE > 200).
+	
+and finally the filter parameters left are: '#ID>20 #VALUE > 200'. Parameters with = (equal) sign disable any previous parameters of the same type. All valid (not disabled) parameters are applied to every single record in the order they have been added. Thus an AND relation occurs between the elements of the filter (param.1 AND param.2 AND pram.n ...).
+
+	Here are some more examples:
+	
+	'#DATE >= 1/1/2006  #DATE < 1/1/2007  #VALUE > 10  #TYPE <> "Bank deposit"'.
+	This example shows all records between the dates written with value bigger than 10 and that 		are different from 'Bank deposit'.
+	
+	'#ID >= 10  #TYPE ~ "tic"  #ID <= 1000  #TYPE ~ "tac"'
+	This filter shows all records from 10 to 1000 included and all that contain both "tic" and
+	"tac" no matter weather the strings are in the #TYPE. If the record for example contains
+	only "tic" it would not be shown.
+	
+	
+	
+	
+
+
+
+
+
+
+

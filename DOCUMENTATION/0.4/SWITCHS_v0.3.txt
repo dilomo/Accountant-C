@@ -1,0 +1,6 @@
+Accountant -t <filename> 
+	traverses the DB specified by flename
+Accountant -t 
+	traverces the last used DB
+Accountant <filename>
+	opens the DB specified by filename for usage but does not save it as app:last_db_used

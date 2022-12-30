@@ -1,0 +1,116 @@
+					
+					CONFIGURE ACCOUNTANT
+					    version 0.3
+				
+1. Main Settings
+2. Grouping
+
+1. === Main Settings ===
+
+	The following file describes each setting that could be set in acc.conf(the name is constant and thus no other names are accepted to use for configuration file) to use with Accountant. This file should be in the same directory in which the program is. It consists of setting name equal sign and a value - all these on the same line. 
+	First its written the name of the setting (it should be typed as is shown if you want the program to read the value) and then is given the value range ([x-y] from x to y; [a b c ...] a or b or c) as well as the default value that will be set if the specified value in acc.conf file is out of range or the setting is not present. The order in which you type the settings doesn't matter.
+
+#app:date_separator_char  is just a comment and is not considered setting because it starts with #
+
+app:date_separator_char = [/ , \ : -], default: '-'
+
+	Used to separate the numbers of a date. Example formats are: 21-5-2007, 21.5.2007,
+	21\5\2007, 21/5/2007, 21:5:2007. Only the chars showed above are allowed. The char may be
+	quoted: "/".
+	
+	
+app:use_iso_date_format = [1 (true) or 0 (false)], default: 1
+
+	Determines the order in which date digits are shown. ISO format: Day-Month-Year. 
+	Non ISO (US) format: Year-Month-Day.
+	
+	
+app:value_precision = [0-6], default: 2
+
+	Used in list to show digits with the precision given as value. Also digits entered in
+	value field will be trimmed to the precision of the setting.
+	
+	
+app:set_new_IDs_on_appload = [1 (true) or 0 (false)], default: 0
+
+	When the program starts it loads all the records from the database in the RAM. So its
+	possible to give the records new ID numbers corresponding to their number in the file. For 
+	example record five will have ID = 5. But on the other hand it will be difficult for 
+	you to remember new IDs each time and thus you may prefer to turn off this option.
+	
+	
+app:last_database_used = [valid file name], default: 'main.adb'
+
+	This setting is used extensively by the program. Each time you open or create new DB
+	its name is stored in the value of the setting. When the program loads the DB pointed by the 		
+	name is loaded. You can change this manually but have to ensure you are giving valid 
+	file names. Quotes around the name of the file are allowed.
+	
+	
+app:last_filter_expression = [valid filter expression], default: not set
+
+	This setting is also changed by the program and you can edit it manually. Its used to 
+	to filter all the data in some meaningful way. For more info check the file 
+	"FILTER EXPRESSIONS_v0.1.TXT"
+	
+	
+showlist:lines_per_page = [1-200], default: 23
+
+	The number of lines(records) displayed per page when show list and show 
+	filtered list invoked. Use 0(zero) to disable the function.
+	
+	
+showlist:remember_last_shown = [1 (true) or 0 (false)], default: 0
+
+	List data preview is very powerful. It remembers the last page you have viewed and the
+	next time you open for example Show list > Income records it will show you the page you
+	last were looking at. This setting controls weather the program to remember that page and
+	the next time you start it and open the list, record preview will begin from the saved page.
+	This option requires some to save the whole database even if there are no changes made to 
+	the DB resulting in slowdown in databases with more than 5 000 000 records.
+	
+	
+export:max_width = [45-300], default: 60
+	
+	Whit this setting you can limit the maximum number of chars that are written to the output
+	(exported) file. Its created for printers compatibility.
+	
+	
+export:add_typestats = [1 (true) or 0 (false)], default: 1
+
+	Adds type usage to the exported file - how much items a type have and the total sum of all of them.
+	
+	
+export:both_path = [valid file name], default: 'export_all.txt'
+export:income_path = [valid file name], default: 'export_income.txt'
+export:outcome_path = [valid file name], default: 'export_outcome.txt'
+
+	These three settings are used to set paths in which export data will be saved. 
+	They are used by the Export to txt part of the program. The names may be quoted: 
+	"file name".
+	
+2. === Grouping ===
+
+	From version 0.3.x you can group similar settings at one place. There are several categories available now: app, export and showlist. Settings that belong to one of these groups can be written like that:
+	
+	#use <app> to start a group
+	<app>
+		value_precision = 3
+		last_database_used = <some_filename_you choose>
+	</app> 
+	#the backslash means that you close that group thus the setting below is invalid
+	use_iso_date_format = 0
+	
+	#but if the setting is written that way it is valid: 
+	app:use_iso_date_format = 0
+	
+	#the same rules are used for the setting group below
+	<export>
+		add_typestats = 1
+		max_width = 50
+	</export>
+	
+Inside groups settings can start with white space(s) or tabs and will be read correctly. 
+	
+	
+	

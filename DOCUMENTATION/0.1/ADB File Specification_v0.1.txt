@@ -1,0 +1,36 @@
+				
+				Accountand Data Base File Format 
+					  version 0.1
+
+The file is a binary file.
+The first two elements are unsigned long. The first one tells us the number of income records and the second one the outcome records number. After these two follows sequence of elements with size of the recdata type:
+
+struct dt{
+    int year;
+    short month;
+    short day;
+};
+typedef struct dt date;
+    
+struct rec_t{
+    unsigned long ID;//should be automatically set by the app
+    double value;
+    char * type;
+    date date;
+};
+typedef struct rec_t recdata; 
+
+Structures are written whit fwrite() function. And because strings could not be saved whit this function they have to be added after words. First a number indicates the length of the string and then a sequence of chars follows. The file structure may be represented like this:
+	
+	unsigned int A..unsigned int b..
+										 
+	recdata c0..unsigned int n..char[0]..char[1]..char[3]...char[n-1]    =>  this is one record
+	recdata c1..unsigned int n1..char[0]..char[1]..char[3]...char[n1-1]
+	...
+	recdata cN..unsigned int nN..char[0]..char[1]..char[3]...char[nN-1]
+
+When A income records are read a sequence of outcome records begin. It is possible to have even more then a million records in one file( N>=0, N < 2 000 000). Actually there is no limit but the programs uses linked list to represent the data and too many records will dramatically slow the app.		
+		
+	
+	
+	

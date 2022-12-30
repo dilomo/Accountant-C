@@ -1,0 +1,51 @@
+				
+				Accountand Data Base File Format 
+					  version 0.3
+
+	The file is a binary file.
+	The first two elements are unsigned long(32 bytes). The first one tells us the number of income records and the second one the outcome records number. Then four integer(32 bytes) numbers follow, representing last page number shown for Incomes, Outcomes, Filtered Incomes and Filtered Outcomes. Then four more unsigned long values follow representing the ID numbers of the first record of the last page shown - Incomes, Outcomes, Filtered Incomes and Filtered Outcomes. After these follows sequence of elements with size of the recdata type:
+
+struct dt{
+    int year;
+    short month;
+    short day;
+};
+typedef struct dt date;
+    
+struct rec_t{
+    unsigned long ID;//should be automatically set by the app
+    double value;
+    char * type;
+    char * descr; //optional so may be NULL
+    date date;
+};
+typedef struct rec_t recdata; 
+
+	Structures are written whit fwrite() function. And because strings could not be saved whit this function they have to be added after words. First a number indicates the length of the string and then a sequence of chars follows. The file structure may be represented like this:
+	
+	> unsigned long IncomesCount (A)..
+	> unsigned long OutcomesCount (b)..
+	
+	> int lastpageIncomes..
+	> int lastpageOutcomes..
+	> int lastpageFilteredIncomes..
+	> int lastpageFilteredOutcomes..
+		
+	> unsigned long lastpageIncome_firstID..
+	> unsigned long lastpageOutcome_firstID..
+	> unsigned long lastpageFilteredIncome_firstID..
+	> unsigned long lastpageFilteredOutcome_firstID..
+					 
+	> recdata c0..unsigned int n..char[0]..char[1]..char[3]...char[n-1]..unsigned int k..char[0]..char[1]..char[3]...char[k-1]  =>  this is one record
+	> recdata c1..unsigned int n1..char[0]..char[1]..char[3]...char[n1-1]..unsigned int k..char[0]..char[1]..char[3]...char[k1-1]
+		...
+	> recdata cN..unsigned int nN..char[0]..char[1]..char[3]...char[nN-1]..unsigned int k..char[0]..char[1]..char[3]...char[kN-1]
+
+	The '>' sign represents that the row belongs to the example file and the '..' sign is example separator between the values of the file.
+	When A income records are read a sequence of outcome records begin. It is possible to have even more than a million or millions records in one file( N>=0, N < inf.). Actually there is no limit but the programs uses linked list to represent the data and too many records will dramatically slow the application.
+	For a database file of ~ 5 000 000 records you will need ~256MB of RAM only for the program(excluding OS). For a database of 10 000 000 records you will need ~512MB of RAM so the database file increases its size by approx. 220 - 280MB for every 5 000 000 records. This information is not confirmed(tested) for database larger than 10 million records.
+	
+		
+	
+	
+	

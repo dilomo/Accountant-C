@@ -1,0 +1,43 @@
+ 
+ == Version 0.2.1 == 18.08.2007 ==
+ 
+ 	New: Now users could specify how much is the width of the exported files
+ 	Fix: ID ident was not set up properly to scroll the rowsperscroll amount
+ 
+ == Version 0.2 == 07.08.2007 ==
+ 	
+ 	New: New filter operators added: ~ and !~
+ 	New: Load database from arguments. Loaded database is not saved as default one
+ 	New: ID width is now calculated separately for each page, thus if there are many records
+ 	     a lot of precious space is saved.
+ 	New: Now records with longer types(descriptions) are showed aligned on several rows.
+ 	New: Added command 5 > 3. Make a copy ...
+ 	New: Added configuration entries for the last page used: to remember or not
+ 	New: When listing records per page the program remembers your last page shown
+ 	     and the next time you show the list it will display the page
+ 	New: Page numbers are show as you go through them as well as the total number of 
+ 	     pages that a group have
+ 	New: Merge databases function added.
+ 	New: Now use quotes in Filter's #TYPE parameter, e.g. #TYPE <>  "Bank deposit";
+ 	     spaces between signs and quotes are now ignored.
+ 	
+ 	Fix: A clearstr() was needed before a value could be passed to filter.data.type
+ 	Fix: Cancel edit of record
+ 	Fix: Small memory leak found and removed.
+ 	Fix: Very annoying bug when adding records. It was caused by strdupl() 
+ 	Fix: Menu system bugs
+ 	Fix: Database name trimmed for white spaces and quotes    
+ 	Fix: Histogram incorrect info algorithm found and corrected
+ 	Fix: Show next page function fixed to show different pages for incomes and outcomes.     
+ 	Fix: Optimised access to the last element of the DB  
+ 	Fix: Show next page now shows correct information
+ 	Fix: No longer strings are accepted when entering Value:
+ 	Fix: Optimised the way the program gets the count of the records
+ 	Fix: clrscr(int) is now replaced by clrscr() with row number predefined
+ 	Fix: Filter value errors
+ 	Fix: Filter type names error
+ 	Fix: Many small bugs
+ 	
+ == Version 0.1 == 31.07.2007  ==
+ 	A program was born ;).
+ 	
