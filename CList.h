@@ -1,0 +1,78 @@
+#ifndef CLIST_H_INCLUDED
+#define CLIST_H_INCLUDED
+
+#include "Acc.LinkedList.h"
+
+struct itm
+{
+    char text[MAX_LINE];
+    double total;
+    unsigned long num;
+};
+/* general type definitions */
+typedef struct itm CItem;
+
+typedef struct node
+{
+    CItem item;
+    struct node * next;
+} CNode;
+
+typedef CNode * CList;
+
+/* function prototypes */
+
+/* operation:        initialize a list                          */
+/* preconditions:    plist points to a list                     */
+/* postconditions:   the list is initialized to empty           */
+void InitializeListPtr(CList * plist);
+/* operation:        determine if list is empty                 */
+/*                   plist points to an initialized list        */
+/* postconditions:   function returns True if list is empty     */
+/*                   and returns False otherwise                */
+bool ListIsEmpty(const CList *plist);
+/* operation:        determine if list is full                  */
+/*                   plist points to an initialized list        */
+/* postconditions:   function returns True if list is full      */
+/*                   and returns False otherwise                */
+bool ListIsFull(const CList *plist);
+/* operation:        determine number of items in list          */
+/*                   plist points to an initialized list        */
+/* postconditions:   function returns number of items in list   */
+unsigned int ListItemCount(const CList *plist);
+/* operation:        add item to end of list                    */
+/* preconditions:    item is an item to be added to list        */
+/*                   plist points to an initialized list        */
+/* postconditions:   if possible, function adds item to end     */
+/*                   of list and returns True; otherwise the    */
+/*                   function returns False                     */
+bool AddItem(CItem item, CList * plist);
+/* operation:        apply a function to each item in list      */
+/*                   plist points to an initialized list        */
+/*                   pfun points to a function that takes an    */
+/*                   Item argument and has no return value      */
+/* postcondition:    the function pointed to by pfun is         */
+/*                   executed once for each item in the list    */
+void Traverse (const CList *plist, void (* pfun)(CItem item) );
+/* operation:        free allocated memory, if any              */
+/*                   plist points to an initialized list        */
+/* postconditions:   any memory allocated for the list is freed */
+/*                   and the list is set to empty               */
+void EmptyTheList(CList * plist);
+/* operation:        check if the item is already added         */
+/*                   in the list. custom pfun() is needed which */
+/*                   compares itemA and itemB and retutns 0 if  */
+/*                   equal                                      */
+/* postconditions:   function returns true if item is in        */
+/*                   *plist else false                          */
+bool ContainsItem(const CItem item, const CList *plist, int (* pfun)(const CItem itemA, const CItem itemB));
+/* operation:        check if the item is already added         */
+/*                   in the list. custom pfun() is needed which */
+/*                   compares itemA and itemB and retutns 0 if  */
+/*                   equal                                      */
+/* postconditions:   function returns the item found else NULL  */
+/*                   *plist else false                          */
+CItem* FindItem(const CItem item, const CList *plist, int (* pfun)(const CItem itemA, const CItem itemB));
+
+
+#endif // CLIST_H_INCLUDED

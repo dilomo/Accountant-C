@@ -1,0 +1,163 @@
+#ifndef ACC_MAIN_H_INCLUDED
+#define ACC_MAIN_H_INCLUDED
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
+#include <time.h>
+#define NDEBUG //deactivates assert()
+#include <assert.h>
+
+#include "libstd.h"
+#include "CList.h" /*to use for type completion*/
+
+
+#define CONF_MAX_LINE 1151 //max lenght of one configuration line
+#define CONF_LVAL_MAX 151
+#define CONF_FILE "acc.conf"
+
+#define TB_WIDTH 46 //textbox default width
+#define SCREEN_HEIGHT 24
+#define SCREEN_WIDTH 80
+
+#define INFO_LEN 1001
+
+#define FILTER_COUNT 30
+#define FILTER_TYPE_LEN 8
+#define FILTER_EQ_LEN 3
+#define FILTER_UNKNOW_DATA_LEN 1000
+
+#define FILTERLOG_ROWS 5
+#define FILTERLOG_LINECHARS 150
+
+#define FILTER_TYPE_CHAR '#'
+#define DATE_ "#DATE"
+#define ID_ "#ID"
+#define VALUE_ "#VALUE"
+#define TYPE_ "#TYPE"
+#define SORT_ "#SORT"
+
+/*import external variables*/
+extern long double IncomeSum;
+extern long double OutcomeSum;
+extern Index IncomesCount;
+extern Index OutcomesCount;
+
+extern bool islastIncome;
+extern bool islastOutcome;
+extern bool islastIncome_filtered;
+extern bool islastOutcome_filtered;
+
+extern REC * lastTraversenIb;
+extern REC * lastTraversenIb_filtered;
+extern REC * lastTraversenOb;
+extern REC * lastTraversenOb_filtered;
+
+/*============================== I/O ==================================*/
+void savedb_Picker(void);
+int savedb_Menu(void);
+
+bool saveAsDatabase(void);
+bool makeCopyDatabase(void);
+bool createDatabase(void);
+
+/*============================== MISC FUNCTIONS ==================================*/
+
+void check_show_filter(rectype t);
+bool deleterecord_seq(rectype t);
+bool editrecord_seq(rectype t);
+int cmpCItems(const CItem itemA, const CItem itemB);
+void printCItem(CItem item);
+void DummyPrint(recdata rp); /*just do nothing, useful for skipping items*/
+
+
+/*=================================== FILTERS ======================================*/
+enum equation
+{
+    equal = 100, greater_than, less_than, greater_than_or_equal, less_than_or_equal, contains, not_contains, not_equal = 99
+};
+enum filtertype
+{
+    ID = 200, DATE, VALUE, TYPE, SORT
+    /*, DESCR*/
+};
+
+//filter element data structures and unions
+union eldata
+{
+    unsigned long ID;
+    double value;
+    date date;
+    char type[FILTER_UNKNOW_DATA_LEN];
+};
+struct filter_element
+{
+    enum filtertype type;
+    union eldata data;
+    enum equation eq;
+};
+
+/*filter functions */
+bool parsefilter(char *s);
+bool passfilter(recdata rp);
+bool applyfilter(recdata a, struct filter_element b);
+
+
+/*============================== MENUES ==================================*/
+/*Add record function group*/
+void addrecord_Picker(void);
+int addrecord_Menu(void); //nested
+void AddRecord(rectype t);
+void AddTypedRecord(rectype t);
+
+
+/*Filter record function group*/
+void filterrecord_Picker(void);
+int filterrecord_Menu(void); //nested
+void FindRecord(rectype t);
+
+/*Show filtered lsit function subgroup*/
+void showfilteredlist_Picker(void);
+int showfilteredlist_Menu(void);
+bool PrintFilteredItem(recdata rp);
+/*Edit and del records subgroup*/
+int Edit_Del_Records_Menu(void);
+void Edit_Del_Records_Picker(void);
+
+void Edit_Del_RecordsSeq_Picker(rectype r);
+int Edit_Del_RecordsSeq_Menu(char *s, rectype t);
+
+
+void ShowList(void(*func)(recdata rp), rectype t);
+void ShowFilteredList(bool(*func)(recdata rp), rectype t);
+
+/*Show lsit function group*/
+void showlist_Picker(void);
+int showlist_Menu(void);
+void PrintItem(recdata rp);
+
+/*Statistic function group*/
+void Statistics_Picker(void);
+int Statistics_Menu(void);
+
+/*Manage DB function group*/
+int manage_Menu(void);
+void manage_Picker(void);
+
+/*Export to text file function subgroup*/
+int export_Menu(void);
+void export_Picker(void);
+
+/*Statistics*/
+int Custom_Menu(int menuelements, void (*func)(rectype r), rectype t);
+void Balance_Picker(rectype r);
+void FilteredBalance_Picker(rectype r);
+void MonthHistogram_Picker(rectype r);
+void TypeHistogram_Picker(rectype t);
+
+int mainmenu_Menu(void);
+void freeAll(void);
+/*========================================================================*/
+
+#endif // ACC_MAIN_H_INCLUDED

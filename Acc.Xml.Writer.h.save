@@ -1,0 +1,35 @@
+#ifndef ACC_XML_WRITER_H_INCLUDED
+#define ACC_XML_WRITER_H_INCLUDED
+
+#include "Acc.Main.h"
+#include "Acc.Xml.h"
+#include "Acc.StringStack.h"
+
+typedef struct xml_writer{
+    FILE* xml_file;
+    char  ident_char;          /*ident chars may be \t, space ot other chars*/
+    int   identation;          /*the number of ident chars to insert*/
+    int   depth;               /*the current depth of the writer*/
+    bool  use_formatting;      /* weather to use the ident char and identation or not*/
+    bool  open_node;           /* weather there is a node open */
+    bool  has_value;           /* weather current node has a value */
+    bool  open_brace;          /* weather there is opened brace*/
+    Stack opened_nodes;        /* conta
+}XmlWriter;
+
+bool InitXmlWriter(XmlWriter* writer, char * filename);
+bool CloseXmlWriter(XmlWriter* writer);
+
+bool WriteStartDoc(XmlWriter* writer);
+bool WriteEndDoc(XmlWriter* writer);
+bool WriteStartElem(XmlWriter* writer,char * name);
+bool WriteEndElem(XmlWriter* writer);
+bool WriteAttributeString(XmlWriter* writer, char * name, char * value);
+bool WriteElementString(XmlWriter* writer, char * name, char * value);
+
+/* arguments:   c   - the char to put before each new level (depth) of the doc   */
+/*              num - number of times to repeat c                                */
+/* if c is '\0' then formatting is disabled no matter what num is                */
+bool SetXmlWriterFormatting(XmlWriter* writer, char c, int num);
+
+#endif // ACC_XML_WRITER_H_INCLUDED

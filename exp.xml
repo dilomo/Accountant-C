@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="ansi"?>
+<AccountantDatabase FileName="testclo.adb" AppVersion="0.4a" Incomes="48" Outcomes="24">
+    <Incomes>
+        <record ID="48">
+            <date>10.02.2008</date>
+            <value>454.000</value>
+            <type>tic</type>
+            <descr>shit</descr>
+        </record>
+        <record ID="47">
+            <date>10.02.2008</date>
+            <value>323.000</value>
+            <type>go</type>
+            <descr>jf ajdsklf eoopklskdf jfksd kdjf ei fklsfjjfi jjfiei djfeij ajdfk ijadf  fkljasd fl djf jdfjfeijf jdfjfiejf j fjsd skldjf! kjddskjd jf</descr>
+        </record>
+        <record ID="46">
+            <date>10.02.2008</date>
+            <value>21.000</value>
+            <type>go</type>
+            <descr>asdfb sjdf jsdh sjhdf jskd sdhf sdh jdf k</descr>
+        </record>
+        <record ID="45">
+            <date>10.02.2008</date>
+            <value>231.000</value>
+            <type>go</type>
+            <descr>alkkl;jsd lskdjf skdjfskdjf sdl;kfsdl skjfjhsdklf k hsdfjkhjskd jkfhsdfjkshdfk sdhf sdjkhfjkhsdf  ahsdjkhf sjdhf jakshdfsdfh jh sdhfj jskdhas jkdf jkshdf kasdh fjkahsdjkfasdh sdjakfh asdhfjk asdjkhasdjkf jaskdhfjksdhjkhsdfjd dhf d dhf dhf dhf jdhfjkasdh fjd</descr>
+        </record>
+        <record ID="44">
+            <date>10.02.2008</date>
+            <value>454.000</value>
+            <type>tic</type>
+            <descr>shit</descr>
+        </record>
+        <record ID="43">
+            <date>10.02.2008</date>
+            <value>323.000</value>
+            <type>go</type>
+            <descr>jf ajdsklf eoopklskdf jfksd kdjf ei fklsfjjfi jjfiei djfeij ajdfk ijadf  fkljasd fl djf jdfjfeijf jdfjfiejf j fjsd skldjf! kjddskjd jf</descr>
+        </record>
+        <record ID="42">
+            <date>10.02.2008</date>
+            <value>21.000</value>
+            <type>go</type>
+            <descr>asdfb sjdf jsdh sjhdf jskd sdhf sdh jdf k</descr>
+        </record>
+        <record ID="41">
+            <date>10.02.2008</date>
+            <value>231.000</value>
+            <type>go</type>
+            <descr>alkkl;jsd lskdjf skdjfskdjf sdl;kfsdl skjfjhsdklf k hsdfjkhjskd jkfhsdfjkshdfk sdhf sdjkhfjkhsdf  ahsdjkhf sjdhf jakshdfsdfh jh sdhfj jskdhas jkdf jkshdf kasdh fjkahsdjkfasdh sdjakfh asdhfjk asdjkhasdjkf jaskdhfjksdhjkhsdfjd dhf d dhf dhf dhf jdhfjkasdh fjd</descr>
+        </record>
+        <record ID="40">
+            <date>10.02.2008</date>
+            <value>454.000</value>
+            <type>tic</type>
+            <descr>shit</descr>
+        </record>
+        <record ID="39">
+            <date>10.02.2008</date>
+            <value>323.000</value>
+            <type>go</type>
+            <descr>jf ajdsklf eoopklskdf jfksd kdjf ei fklsfjjfi jjfiei djfeij ajdfk ijadf  fkljasd fl djf jdfjfeijf jdfjfiejf j fjsd skldjf! kjddskjd jf</descr>
+        </record>
+        <record ID="38">
+            <date>10.02.2008</date>
+            <value>21.000</value>
+            <type>go</type>
+            <descr>asdfb sjdf jsdh sjhdf jskd sdhf sdh jdf k</descr>
+        </record>
+        <record ID="37">
+            <date>10.02.2008</date>
+            <value>231.000</value>
+            <type>go</type>
+            <descr>alkkl;jsd lskdjf skdjfskdjf sdl;kfsdl skjfjhsdklf k hsdfjkhjskd jkfhsdfjkshdfk sdhf sdjkhfjkhsdf  ahsdjkhf sjdhf jakshdfsdfh jh sdhfj jskdhas jkdf jkshdf kasdh fjkahsdjkfasdh sdjakfh asdhfjk asdjkhasdjkf jaskdhfjksdhjkhsdfjd dhf d dhf dhf dhf jdhfjkasdh fjd</descr>
+        </record>
+        <record ID="36">
+            <date>10.02.2008</date>
+            <value>454.000</value>
+            <type>tic</type>
+            <descr>shit</descr>
+        </record>
+        <record ID="35">
+            <date>10.02.2008</date>
+            <value>323.000</value>
+            <type>go</type>
+            <descr>jf ajdsklf eoopklskdf jfksd kdjf ei fklsfjjfi jjfiei djfeij ajdfk ijadf  fkljasd fl djf jdfjfeijf jdfjfiejf j fjsd skldjf! kjddskjd jf</descr>
+        </record>
+        <record ID="34">
+            <date>10.02.2008</date>
+            <value>21.000</value>
+            <type>go</type>
+            <descr>asdfb sjdf jsdh sjhdf jskd sdhf sdh jdf k</descr>
+        </record>
+        <record ID="33">
+            <date>10.02.2008</date>
+            <value>231.000</value>
+            <type>go</type>
+            <descr>alkkl;jsd lskdjf skdjfskdjf sdl;kfsdl skjfjhsdklf k hsdfjkhjskd jkfhsdfjkshdfk sdhf sdjkhfjkhsdf  ahsdjkhf sjdhf jakshdfsdfh jh sdhfj jskdhas jkdf jkshdf kasdh fjkahsdjkfasdh sdjakfh asdhfjk asdjkhasdjkf jaskdhfjksdhjkhsdfjd dhf d dhf dhf dhf jdhfjkasdh fjd</descr>
+        </record>
+        <record ID="32">
+            <date>10.02.2008</date>
+            <value>454.000</value>
+            <type>tic</type>
+            <descr>shit</descr>
+        </record>
+        <record ID="31">
+            <date>10.02.2008</date>
+            <value>323.000</value>
+            <type>go</type>
+            <descr>jf ajdsklf eoopklskdf jfksd kdjf ei fklsfjjfi jjfiei djfeij ajdfk ijadf  fkljasd fl djf jdfjfeijf jdfjfiejf j fjsd skldjf! kjddskjd jf</descr>
+        </record>
+        <record ID="30">
+            <date>10.02.2008</date>
+            <value>21.000</value>
+            <type>go</type>
+            <descr>asdfb sjdf jsdh sjhdf jskd sdhf sdh jdf k</descr>
+        </record>
+        <record ID="29">
+            <date>10.02.2008</date>
+            <value>231.000</value>
+            <type>go</type>
+            <descr>alkkl;jsd lskdjf skdjfskdjf sdl;kfsdl skjfjhsdklf k hsdfjkhjskd jkfhsdfjkshdfk sdhf sdjkhfjkhsdf  ahsdjkhf sjdhf jakshdfsdfh jh sdhfj jskdhas jkdf jkshdf kasdh fjkahsdjkfasdh sdjakfh asdhfjk asdjkhasdjkf jaskdhfjksdhjkhsdfjd dhf d dhf dhf dhf jdhfjkasdh fjd</descr>
+        </record>
+        <record ID="28">
+            <date>10.02.2008</date>
+            <value>454.000</value>
+            <type>tic</type>
+            <descr>shit</descr>
+        </record>
+        <record ID="27">
+            <date>10.02.2008</date>
+            <value>323.000</value>
+            <type>go</type>
+            <descr>jf ajdsklf eoopklskdf jfksd kdjf ei fklsfjjfi jjfiei djfeij ajdfk ijadf  fkljasd fl djf jdfjfeijf jdfjfiejf j fjsd skldjf! kjddskjd jf</descr>
+        </record>
+        <record ID="26">
+            <date>10.02.2008</date>
+            <value>21.000</value>
+            <type>go</type>
+            <descr>asdfb sjdf jsdh sjhdf jskd sdhf sdh jdf k</descr>
+        </record>
+        <record ID="25">
+            <date>10.02.2008</date>
+            <value>231.000</value>
+            <type>go</type>
+            <descr>alkkl;jsd lskdjf skdjfskdjf sdl;kfsdl skjfjhsdklf k hsdfjkhjskd jkfhsdfjkshdfk sdhf sdjkhfjkhsdf  ahsdjkhf sjdhf jakshdfsdfh jh sdhfj jskdhas jkdf jkshdf kasdh fjkahsdjkfasdh sdjakfh asdhfjk asdjkhasdjkf jaskdhfjksdhjkhsdfjd dhf d dhf dhf dhf jdhfjkasdh fjd</descr>
+        </record>
+        <record ID="24">
+            <date>10.02.2008</date>
+            <value>454.000</value>
+            <type>tic</type>
+            <descr>shit</descr>
+        </record>
+        <record ID="23">
+            <date>10.02.2008</date>
+            <value>323.000</value>
+            <type>go</type>
+            <descr>jf ajdsklf eoopklskdf jfksd kdjf ei fklsfjjfi jjfiei djfeij ajdfk ijadf  fkljasd fl djf jdfjfeijf jdfjfiejf j fjsd skldjf! kjddskjd jf</descr>
+        </record>
+        <record ID="22">
+            <date>10.02.2008</date>
+            <value>21.000</value>
+            <type>go</type>
+            <descr>asdfb sjdf jsdh sjhdf jskd sdhf sdh jdf k</descr>
+        </record>
+        <record ID="21">
+            <date>10.02.2008</date>
+            <value>231.000</value>
+            <type>go</type>
+            <descr>alkkl;jsd lskdjf skdjfskdjf sdl;kfsdl skjfjhsdklf k hsdfjkhjskd jkfhsdfjkshdfk sdhf sdjkhfjkhsdf  ahsdjkhf sjdhf jakshdfsdfh jh sdhfj jskdhas jkdf jkshdf kasdh fjkahsdjkfasdh sdjakfh asdhfjk asdjkhasdjkf jaskdhfjksdhjkhsdfjd dhf d dhf dhf dhf jdhfjkasdh fjd</descr>
+        </record>
+        <record ID="20">
+            <date>10.02.2008</date>
+            <value>454.000</value>
+            <type>tic</type>
+            <descr>shit</descr>
+        </record>
+        <record ID="19">
+            <date>10.02.2008</date>
+            <value>323.000</value>
+            <type>go</type>
+            <descr>jf ajdsklf eoopklskdf jfksd kdjf ei fklsfjjfi jjfiei djfeij ajdfk ijadf  fkljasd fl djf jdfjfeijf jdfjfiejf j fjsd skldjf! kjddskjd jf</descr>
+        </record>
+        <record ID="18">
+            <date>10.02.2008</date>
+            <value>21.000</value>
+            <type>go</type>
+            <descr>asdfb sjdf jsdh sjhdf jskd sdhf sdh jdf k</descr>
+        </record>
+        <record ID="17">
+            <date>10.02.2008</date>
+            <value>231.000</value>
+            <type>go</type>
+            <descr>alkkl;jsd lskdjf skdjfskdjf sdl;kfsdl skjfjhsdklf k hsdfjkhjskd jkfhsdfjkshdfk sdhf sdjkhfjkhsdf  ahsdjkhf sjdhf jakshdfsdfh jh sdhfj jskdhas jkdf jkshdf kasdh fjkahsdjkfasdh sdjakfh asdhfjk asdjkhasdjkf jaskdhfjksdhjkhsdfjd dhf d dhf dhf dhf jdhfjkasdh fjd</descr>
+        </record>
+        <record ID="16">
+            <date>10.02.2008</date>
+            <value>454.000</value>
+            <type>tic</type>
+            <descr>shit</descr>
+        </record>
+        <record ID="15">
+            <date>10.02.2008</date>
+            <value>323.000</value>
+            <type>go</type>
+            <descr>jf ajdsklf eoopklskdf jfksd kdjf ei fklsfjjfi jjfiei djfeij ajdfk ijadf  fkljasd fl djf jdfjfeijf jdfjfiejf j fjsd skldjf! kjddskjd jf</descr>
+        </record>
+        <record ID="14">
+            <date>10.02.2008</date>
+            <value>21.000</value>
+            <type>go</type>
+            <descr>asdfb sjdf jsdh sjhdf jskd sdhf sdh jdf k</descr>
+        </record>
+        <record ID="13">
+            <date>10.02.2008</date>
+            <value>231.000</value>
+            <type>go</type>
+            <descr>alkkl;jsd lskdjf skdjfskdjf sdl;kfsdl skjfjhsdklf k hsdfjkhjskd jkfhsdfjkshdfk sdhf sdjkhfjkhsdf  ahsdjkhf sjdhf jakshdfsdfh jh sdhfj jskdhas jkdf jkshdf kasdh fjkahsdjkfasdh sdjakfh asdhfjk asdjkhasdjkf jaskdhfjksdhjkhsdfjd dhf d dhf dhf dhf jdhfjkasdh fjd</descr>
+        </record>
+        <record ID="12">
+            <date>10.02.2008</date>
+            <value>454.000</value>
+            <type>tic</type>
+            <descr>shit</descr>
+        </record>
+        <record ID="11">
+            <date>10.02.2008</date>
+            <value>323.000</value>
+            <type>go</type>
+            <descr>jf ajdsklf eoopklskdf jfksd kdjf ei fklsfjjfi jjfiei djfeij ajdfk ijadf  fkljasd fl djf jdfjfeijf jdfjfiejf j fjsd skldjf! kjddskjd jf</descr>
+        </record>
+        <record ID="10">
+            <date>10.02.2008</date>
+            <value>21.000</value>
+            <type>go</type>
+            <descr>asdfb sjdf jsdh sjhdf jskd sdhf sdh jdf k</descr>
+        </record>
+        <record ID="9">
+            <date>10.02.2008</date>
+            <value>231.000</value>
+            <type>go</type>
+            <descr>alkkl;jsd lskdjf skdjfskdjf sdl;kfsdl skjfjhsdklf k hsdfjkhjskd jkfhsdfjkshdfk sdhf sdjkhfjkhsdf  ahsdjkhf sjdhf jakshdfsdfh jh sdhfj jskdhas jkdf jkshdf kasdh fjkahsdjkfasdh sdjakfh asdhfjk asdjkhasdjkf jaskdhfjksdhjkhsdfjd dhf d dhf dhf dhf jdhfjkasdh fjd</descr>
+        </record>
+        <record ID="8">
+            <date>10.02.2008</date>
+            <value>454.000</value>
+            <type>tic</type>
+            <descr>shit</descr>
+        </record>
+        <record ID="7">
+            <date>10.02.2008</date>
+            <value>323.000</value>
+            <type>go</type>
+            <descr>jf ajdsklf eoopklskdf jfksd kdjf ei fklsfjjfi jjfiei djfeij ajdfk ijadf  fkljasd fl djf jdfjfeijf jdfjfiejf j fjsd skldjf! kjddskjd jf</descr>
+        </record>
+        <record ID="6">
+            <date>10.02.2008</date>
+            <value>21.000</value>
+            <type>go</type>
+            <descr>asdfb sjdf jsdh sjhdf jskd sdhf sdh jdf k</descr>
+        </record>
+        <record ID="5">
+            <date>10.02.2008</date>
+            <value>231.000</value>
+            <type>go</type>
+            <descr>alkkl;jsd lskdjf skdjfskdjf sdl;kfsdl skjfjhsdklf k hsdfjkhjskd jkfhsdfjkshdfk sdhf sdjkhfjkhsdf  ahsdjkhf sjdhf jakshdfsdfh jh sdhfj jskdhas jkdf jkshdf kasdh fjkahsdjkfasdh sdjakfh asdhfjk asdjkhasdjkf jaskdhfjksdhjkhsdfjd dhf d dhf dhf dhf jdhfjkasdh fjd</descr>
+        </record>
+        <record ID="4">
+            <date>10.02.2008</date>
+            <value>454.000</value>
+            <type>tic</type>
+            <descr>shit</descr>
+        </record>
+        <record ID="3">
+            <date>10.02.2008</date>
+            <value>323.000</value>
+            <type>go</type>
+            <descr>jf ajdsklf eoopklskdf jfksd kdjf ei fklsfjjfi jjfiei djfeij ajdfk ijadf  fkljasd fl djf jdfjfeijf jdfjfiejf j fjsd skldjf! kjddskjd jf</descr>
+        </record>
+        <record ID="2">
+            <date>10.02.2008</date>
+            <value>21.000</value>
+            <type>go</type>
+            <descr>asdfb sjdf jsdh sjhdf jskd sdhf sdh jdf k</descr>
+        </record>
+        <record ID="1">
+            <date>10.02.2008</date>
+            <value>231.000</value>
+            <type>go</type>
+            <descr>alkkl;jsd lskdjf skdjfskdjf sdl;kfsdl skjfjhsdklf k hsdfjkhjskd jkfhsdfjkshdfk sdhf sdjkhfjkhsdf  ahsdjkhf sjdhf jakshdfsdfh jh sdhfj jskdhas jkdf jkshdf kasdh fjkahsdjkfasdh sdjakfh asdhfjk asdjkhasdjkf jaskdhfjksdhjkhsdfjd dhf d dhf dhf dhf jdhfjkasdh fjd</descr>
+        </record>
+    </Incomes>
+    <Outcomes>
+        <record ID="24">
+            <date>11.02.2008</date>
+            <value>32.000</value>
+            <type>jo</type>
+            <descr>fsdgsd</descr>
+        </record>
+        <record ID="23">
+            <date>10.02.2008</date>
+            <value>54654.000</value>
+            <type>jo</type>
+            <descr>4354</descr>
+        </record>
+        <record ID="22">
+            <date>11.02.2008</date>
+            <value>32.000</value>
+            <type>jo</type>
+            <descr>fsdgsd</descr>
+        </record>
+        <record ID="21">
+            <date>10.02.2008</date>
+            <value>54654.000</value>
+            <type>jo</type>
+            <descr>4354</descr>
+        </record>
+        <record ID="20">
+            <date>11.02.2008</date>
+            <value>32.000</value>
+            <type>jo</type>
+            <descr>fsdgsd</descr>
+        </record>
+        <record ID="19">
+            <date>10.02.2008</date>
+            <value>54654.000</value>
+            <type>jo</type>
+            <descr>4354си</descr>
+        </record>
+        <record ID="18">
+            <date>11.02.2008</date>
+            <value>32.000</value>
+            <type>jo</type>
+            <descr>fsdgsd</descr>
+        </record>
+        <record ID="17">
+            <date>10.02.2008</date>
+            <value>54654.000</value>
+            <type>jo</type>
+            <descr>4354</descr>
+        </record>
+        <record ID="16">
+            <date>11.02.2008</date>
+            <value>32.000</value>
+            <type>jo</type>
+            <descr>fsdgsd</descr>
+        </record>
+        <record ID="15">
+            <date>10.02.2008</date>
+            <value>54654.000</value>
+            <type>jo</type>
+            <descr>4354</descr>
+        </record>
+        <record ID="14">
+            <date>11.02.2008</date>
+            <value>32.000</value>
+            <type>jo</type>
+            <descr>fsdgsd</descr>
+        </record>
+        <record ID="13">
+            <date>10.02.2008</date>
+            <value>54654.000</value>
+            <type>jo</type>
+            <descr>4354</descr>
+        </record>
+        <record ID="12">
+            <date>11.02.2008</date>
+            <value>32.000</value>
+            <type>jo</type>
+            <descr>fsdgsd</descr>
+        </record>
+        <record ID="11">
+            <date>10.02.2008</date>
+            <value>54654.000</value>
+            <type>jo</type>
+            <descr>4354си</descr>
+        </record>
+        <record ID="10">
+            <date>11.02.2008</date>
+            <value>32.000</value>
+            <type>jo</type>
+            <descr>fsdgsd</descr>
+        </record>
+        <record ID="9">
+            <date>10.02.2008</date>
+            <value>54654.000</value>
+            <type>jo</type>
+            <descr>4354</descr>
+        </record>
+        <record ID="8">
+            <date>11.02.2008</date>
+            <value>32.000</value>
+            <type>jo</type>
+            <descr>fsdgsd</descr>
+        </record>
+        <record ID="7">
+            <date>10.02.2008</date>
+            <value>54654.000</value>
+            <type>jo</type>
+            <descr>4354</descr>
+        </record>
+        <record ID="6">
+            <date>11.02.2008</date>
+            <value>32.000</value>
+            <type>jo</type>
+            <descr>fsdgsd</descr>
+        </record>
+        <record ID="5">
+            <date>10.02.2008</date>
+            <value>54654.000</value>
+            <type>jo</type>
+            <descr>4354</descr>
+        </record>
+        <record ID="4">
+            <date>11.02.2008</date>
+            <value>32.000</value>
+            <type>jo</type>
+            <descr>fsdgsd</descr>
+        </record>
+        <record ID="3">
+            <date>10.02.2008</date>
+            <value>54654.000</value>
+            <type>jo</type>
+            <descr>4354си</descr>
+        </record>
+        <record ID="2">
+            <date>11.02.2008</date>
+            <value>32.000</value>
+            <type>jo</type>
+            <descr>fsdgsd</descr>
+        </record>
+        <record ID="1">
+            <date>10.02.2008</date>
+            <value>54654.000</value>
+            <type>jo</type>
+            <descr>4354</descr>
+        </record>
+    </Outcomes>
+</AccountantDatabase>

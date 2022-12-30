@@ -1,0 +1,741 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
+#include "Cacc.h"
+
+/*public vars*/
+long double IncomeSum = 0;
+long double OutcomeSum = 0;
+Index IncomesCount = 0;
+Index OutcomesCount = 0;
+
+//income list
+static REC * mlIn;
+//outcome list
+static REC * mlOut;
+static REC * lastIn;
+static REC * lastOut;
+static Index idIn = 0;
+static Index idOut = 0;
+/*traversen*/
+static REC * lastTraversenI = NULL;
+static REC * lastTraversenO = NULL;
+
+REC * lastTraversenIb = NULL;
+REC * lastTraversenOb = NULL; //b stands for backup
+bool islastIncome = false;
+bool islastOutcome = false;
+
+/*traversn_filtered*/
+static REC * lastTraversenI_filtered = NULL;
+static REC * lastTraversenO_filtered = NULL;
+REC * lastTraversenIb_filtered = NULL;
+REC * lastTraversenOb_filtered = NULL; //b stands for backup
+bool islastIncome_filtered = false;
+bool islastOutcome_filtered = false;
+/*================================*/
+
+static Index getnextfree(rectype t);
+static REC * getsrc(rectype t);
+static void setsrc(REC *r,rectype t);
+static void setlast(REC * r, rectype t);
+enum balanceaction {
+    add_to = 97, remove_from
+};
+
+static void refresh_balance(double val, rectype t,enum balanceaction action);
+
+void
+InitialzieList(void) {
+    mlIn = NULL;
+    mlOut = NULL;
+    lastIn = NULL;
+    lastOut = NULL;
+    idIn = 0;
+    idOut = 0;
+    IncomesCount = 0;
+    OutcomesCount = 0;
+    IncomeSum = 0;
+    OutcomeSum = 0;
+
+    lastTraversenI = NULL;
+    lastTraversenO = NULL;
+    lastTraversenIb = NULL;
+    lastTraversenOb = NULL;
+    islastIncome = false;
+    islastOutcome = false;
+
+    lastTraversenI_filtered = NULL;
+    lastTraversenO_filtered = NULL;
+    lastTraversenIb_filtered = NULL;
+    lastTraversenOb_filtered = NULL;
+    islastIncome_filtered = false;
+    islastOutcome_filtered = false;
+}
+
+bool
+addtolist(recdata r, rectype t) {
+    REC *rp = (REC *) malloc(sizeof(REC));
+    REC *rpm = NULL;
+
+    /* r.descr is altered because is optional*/
+    if (rp == NULL || r.type == NULL) //no free memory available
+    {printe("No free memory or invalid type");
+        return false;
+    }
+    r.ID = getnextfree(t);
+
+    refresh_balance(r.value, t, add_to);
+
+    rp->data = r;
+    rp->data.type = r.type;
+    rp->data.descr = r.descr;
+    rp->next = NULL;
+
+    rpm = getlast(t);
+
+    if (rpm == NULL) {
+        setsrc(rp,t);
+    } else
+        rpm->next = rp;
+
+    setlast(rp, t);
+
+    return true;
+}
+
+bool
+addtolist_withID(recdata r, rectype t) {
+    REC *rp = (REC *) malloc(sizeof(REC));
+    REC *rpm = NULL;
+
+    if (rp == NULL || r.type == NULL) //no free memory
+    {
+        printe("No free memory or invalid type");
+        return false;
+    }
+    Index freeID =getnextfree(t);
+    if (r.ID < freeID)
+        r.ID = freeID;
+
+    refresh_balance(r.value, t, add_to);
+
+    rp->data.type = r.type;
+    rp->data.descr = r.descr;
+    // free(r.type);
+    rp->data = r;
+    rp->next = NULL;
+
+    rpm = getlast(t);
+    if (rpm == NULL) {
+        setsrc(rp,t);
+    } else
+        rpm->next = rp;
+
+    setlast(rp, t);
+    return true;
+}
+
+bool
+rmfromlist(REC *r, rectype t) {
+    REC *first = getsrc(t);
+    REC *lastT = (t==income ? lastTraversenIb : lastTraversenOb);
+    REC *lastTf = (t==income ? lastTraversenIb_filtered : lastTraversenOb_filtered);
+
+    if (first == NULL)
+        return false;
+
+    if (reccmp(first->data,r->data) == 0) {
+        setsrc(r->next,t);
+        /* change the last shown record to the next before r
+         * is deleted
+         */
+        if (lastT!=NULL && lastT->data.ID == r->data.ID)
+            lastT = r->next;
+        if (lastTf!=NULL && lastTf->data.ID == r->data.ID)
+            lastTf = r->next;
+
+        free(r);
+        return true;
+    }
+
+    REC *prv, *next, *iter;
+    prv = next = NULL;
+    iter = prv = first;
+
+    while (iter != NULL) {
+        if (reccmp(iter->data, r->data) == 0) {
+            next = iter->next;
+            break;
+        }
+        prv = iter;
+        iter= iter->next;
+    }
+    refresh_balance(r->data.value, t, remove_from);
+
+    if (r == getlast(t) && next == NULL)
+        setlast(prv, t);
+
+    /* change the last shown record to the next before r
+     * is deleted
+     */
+    if (lastT!=NULL && lastT->data.ID == r->data.ID)
+            lastT = r->next;
+    if (lastTf!=NULL && lastTf->data.ID == r->data.ID)
+            lastTf = r->next;
+
+    free(r);
+    prv->next = next;
+
+    switch(t){
+        case income:
+            lastTraversenIb = lastT;
+            lastTraversenIb_filtered = lastTf;
+            break;
+        case outcome:
+            lastTraversenOb = lastT;
+            lastTraversenOb_filtered = lastTf;
+            break;
+        case both:
+            break;
+    }
+    return true;
+}
+
+bool
+listisempty(rectype r) {
+    if (getsrc(r) == NULL)
+        return true;
+
+    return false;
+}
+
+bool
+listisfull(rectype r) {
+    REC *rp = NULL;
+    bool freep = true;
+
+    rp = (REC *) malloc(sizeof(REC));
+
+    if (rp == NULL);
+    freep = false;
+
+
+    if (MAX_LST_LEN <= count(r)) {
+        if (freep != false)
+            freep = true;
+    }
+
+    free(rp);
+    return freep;
+}
+
+void
+clearlist(rectype r) {
+    REC *rp = getsrc(r);
+
+    while (rp != NULL) {
+        REC *nx = rp->next;
+        /*must free the strings*/
+        free(rp->data.type);
+        free(rp->data.descr);
+        free(rp);
+        rp = nx;
+    }
+}
+
+/*slow O(n) function, use IncomesCount/OutcomesCount instead*/
+Index
+count(rectype t) {
+    Index c = 0;
+    REC *rp = getsrc(t);
+
+    while (rp != NULL) {
+        c++;
+        rp = rp->next; //next element
+    }
+    return c;
+}
+
+REC *
+jump(REC **start, int no_records, rectype t) {
+    Index c = 1;
+    if (*start == NULL)
+        *start = getsrc(t);
+
+    REC *rp = *start;
+
+    while (rp != NULL && c <= no_records) {
+        c++;
+        rp = rp->next; //next element
+    }
+
+    *start = rp;
+    return *start;
+}
+
+bool
+refreshIndex(rectype t) {
+    Index c = 0;
+    REC *rp = getsrc(t);
+    /*get last record show according to the record type*/
+    REC *lastT = (t==income ? lastTraversenIb : lastTraversenOb);
+    REC *lastTf = (t==income ? lastTraversenIb_filtered : lastTraversenOb_filtered);
+    Index id;
+
+    if (rp == NULL)
+        return false;
+
+
+    while (rp != NULL) {
+        c++;
+        /*set old & new IDs*/
+        id = rp->data.ID;
+        rp->data.ID = c;
+
+        /*check if the ID is currently
+         *in use by the memory system of
+         *show list and do the neccessary
+         *chages
+         */
+        if (lastT!=NULL && lastT->data.ID == id)
+            lastT->data.ID = c;
+        if (lastTf!=NULL && lastTf->data.ID == id)
+            lastTf->data.ID = c;
+
+        rp = rp->next; //next element
+    }
+
+    switch(t){
+        case income:
+            lastTraversenIb = lastT;
+            lastTraversenIb_filtered = lastTf;
+            break;
+        case outcome:
+            lastTraversenOb = lastT;
+            lastTraversenOb_filtered = lastTf;
+            break;
+        case both:
+            break;
+    }
+    return true;
+}
+
+int traverse(void (*func)(recdata r),rectype t) {
+    REC *rp = getsrc(t);
+    int count = 0;
+
+    while (rp != NULL) {
+        (*func)(rp->data);
+        rp = rp->next;
+        count++;
+    }
+
+    return count;
+}
+
+int traversen(void(*func)(recdata rp),rectype t, int max, bool firstpage) {
+
+    REC *iterator = NULL;
+
+    /* restore show from last page viewed*/
+    switch (t){
+        case income:
+            if (lastTraversenI == NULL)
+                lastTraversenI = getsrc(t);
+
+            if (firstpage && lastTraversenIb != NULL)
+                iterator = lastTraversenIb;
+            else{
+                iterator = lastTraversenI;
+                lastTraversenIb = lastTraversenI;
+            }
+        break;
+        case outcome:
+            if (lastTraversenO == NULL)
+                lastTraversenO = getsrc(t);
+
+             if (firstpage&& lastTraversenOb != NULL)
+                iterator = lastTraversenOb;
+             else{
+                iterator = lastTraversenO;
+                lastTraversenOb = lastTraversenO;
+             }
+         break;
+        case both:
+        return 0;
+            break;
+    }
+
+    int count = 0;
+
+    while (iterator != NULL && count < max) {
+        (*func)(iterator->data);
+        iterator = iterator->next;
+        count++;
+    }
+
+    /*save last for next use*/
+    switch (t){
+        case income:
+            lastTraversenI = iterator;
+            if (iterator == NULL)
+                islastIncome = true;
+        break;
+        case outcome:
+            lastTraversenO = iterator;
+            if (iterator == NULL)
+                islastOutcome = true;
+        break;
+        case both:
+            return 0;
+        break;
+    }
+
+    return count;
+}
+
+int traversen_filtered(void(*func)(recdata rp),rectype t, int max, bool firstpage) {
+
+    REC *iterator = NULL;
+
+    /* restore show from last page viewed*/
+    switch (t){
+        case income:
+            if (lastTraversenI_filtered == NULL)
+                lastTraversenI_filtered = getsrc(t);
+
+            if (firstpage && lastTraversenIb_filtered != NULL)
+                iterator = lastTraversenIb_filtered;
+            else{
+                iterator = lastTraversenI_filtered;
+                lastTraversenIb_filtered = lastTraversenI_filtered;
+            }
+        break;
+        case outcome:
+            if (lastTraversenO_filtered == NULL)
+                lastTraversenO_filtered = getsrc(t);
+
+             if (firstpage&& lastTraversenOb_filtered != NULL)
+                iterator = lastTraversenOb_filtered;
+             else{
+                iterator = lastTraversenO_filtered;
+                lastTraversenOb_filtered = lastTraversenO_filtered;
+             }
+         break;
+         case both:
+            return 0;
+         break;
+    }
+
+    int count = 0;
+
+    while (iterator != NULL && count < max) {
+        (*func)(iterator->data);
+        iterator = iterator->next;
+        count++;
+    }
+
+    /*save last for next use*/
+    switch (t){
+        case income:
+            lastTraversenI_filtered = iterator;
+            if (iterator == NULL)
+                islastIncome_filtered = true;
+        break;
+        case outcome:
+            lastTraversenO_filtered = iterator;
+            if (iterator == NULL)
+                islastOutcome_filtered = true;
+        break;
+        case both:
+            return 0;
+        break;
+    }
+
+    return count;
+}
+
+static REC * getsrc(rectype t) {
+    REC * rp = NULL;
+
+    if (t == income)
+        rp = mlIn;
+    else if (t == outcome)
+        rp = mlOut;
+
+    return rp;
+}
+
+static void setsrc(REC *r,rectype t) {
+    if (t == income)
+        mlIn = r;
+    else if (t == outcome)
+        mlOut = r;
+}
+
+REC * findrec(recdata r,rectype t) {
+    REC *rp = getsrc(t);
+
+    while (rp != NULL) {
+        if (reccmp(r,rp->data) == 0)
+            return rp;
+        rp = rp->next;
+    }
+
+    return NULL;
+}
+
+REC * findreci(recdata r,rectype t) {
+    REC *rp = getsrc(t);
+
+    while (rp != NULL) {
+        if (reccmpi(r,rp->data) == 0)
+            return rp;
+        rp = rp->next;
+    }
+
+    return NULL;
+}
+
+REC * findrec_ID(Index ID,rectype t) {
+    REC *rp = getsrc(t);
+
+    while (rp != NULL) {
+        if (rp->data.ID == ID)
+            return rp;
+        rp = rp->next;
+    }
+
+    return NULL;
+}
+
+REC * findrec_Value(double v,rectype t) {
+    REC *rp = getsrc(t);
+    while (rp != NULL) {
+        if (rp->data.value == v)
+            return rp;
+        rp = rp->next;
+    }
+
+    return NULL;
+}
+
+REC * findrec_Date(date d,rectype t) {
+    REC *rp = getsrc(t);
+    while (rp != NULL) {
+        if (dateequal(rp->data.date,d))
+            return rp;
+        rp = rp->next;
+    }
+
+    return NULL;
+}
+
+REC * getlast(rectype t) {
+
+    if (t == income)
+        return lastIn;
+    else /*strange bahaviour may occure if rectype.both is used
+           here but I remove the check in order to improve
+           efficiensy and because I'm not using rectype.both here
+           if (t == outcome)
+           */
+        return lastOut;
+
+    return NULL;
+}
+
+REC * getfirst(rectype t)
+{
+    return (getsrc(t));
+}
+
+static void setlast(REC * r, rectype t) {
+    if (t == income)
+        lastIn = r;
+    else /*strange bahaviour may occure if rectype.both is used
+           here but I remove the check in order to improve
+           efficiensy and because I'm not using rectype.both here
+           if (t == outcome)
+           */
+        lastOut = r;
+}
+
+static Index getnextfree(rectype t) {
+    REC *recp = getlast(t);
+
+    if (recp == NULL) //first one
+        return 1;
+
+    if (t == income)
+        idIn= recp->data.ID + 1;
+    else /*strange bahaviour may occure if rectype.both is used
+           here but I remove the check in order to improve
+           efficiensy and because I'm not using rectype.both here
+           if (t == outcome)
+           */
+        idOut= recp->data.ID + 1;
+
+ return (t==income? idIn : idOut);
+}
+
+/*Cpmpares r1 to r2 REC types*/
+bool recequal(recdata r1, recdata r2) {
+    if (r1.ID != r2.ID)
+        return false;
+    if (r1.type != r1.type)
+        return false;
+    if (r1.descr != r1.descr)
+        return false;
+    if (r1.value != r2.value)
+        return false;
+    if (!dateequal(r1.date, r2.date))
+        return false;
+
+    return true;
+}
+
+int reccmp(recdata r1, recdata r2) {
+    int res;
+
+    if (r1.ID > r2.ID)
+        return 1;
+    else if (r1.ID < r2.ID)
+        return -1;
+
+    if (r1.value > r2.value)
+        return 1;
+    else if (r1.value < r2.value)
+        return -1;
+
+    if ((res = datecmp(r1.date,r2.date))!= 0)
+        return res;
+
+    if ((res = strcmp(r1.type,r2.type))!= 0)
+        return res;
+
+    if ((res = strcmp(r1.descr,r2.descr))!= 0)
+        return res;
+
+    return 0;
+}
+
+/*compare and ignore the records' IDs*/
+int reccmpi(recdata r1, recdata r2) {
+    int res;
+
+    if (r1.value > r2.value)
+        return 1;
+    else if (r1.value < r2.value)
+        return -1;
+
+    if ((res = datecmp(r1.date,r2.date))!= 0)
+        return res;
+    if ((res = strcmp(r1.type,r2.type))!= 0)
+        return res;
+        if ((res = strcmp(r1.descr,r2.descr))!= 0)
+        return res;
+
+    return 0;
+}
+
+Index lastIndex(rectype r) {
+    if (r == income)
+        return idIn;
+    else if (r == outcome)
+        return idOut;
+
+    return -1;
+}
+
+double biggestValue(rectype t) {
+    REC *rp = getsrc(t);
+
+    double val = 0;
+
+    while (rp != NULL) {
+        if (val < rp->data.value)
+            val = rp->data.value;
+        rp = rp->next;
+    }
+
+    return val;
+}
+
+
+void printe(string fmt, ...) {
+
+    va_list ap;
+    va_start(ap,fmt);
+
+    fprintf(stderr, "error: ");
+    vfprintf(stderr,fmt, ap);
+    fprintf(stderr,"\n");
+
+    va_end(ap);
+
+//    string p, sval;
+//    int ival;
+//
+//    va_start(ap,fmt);
+//
+//    for (p = fmt; *p; p++)
+//    {
+//        if(*p != '%'){
+//            putchar(*p);
+//            continue;
+//        }
+//        switch (*++p){
+//            case 'd':
+//                ival = va_arg(ap,int);
+//                printf("%d");
+//                break;
+//            case 'f':
+//                break;
+//            case 's':
+//                break;
+//            default:
+//                putchar(*p);
+//                break;
+//        }
+//    }
+//    va_end(ap);
+}
+
+static void refresh_balance(double val, rectype t,enum balanceaction action) {
+    switch (t) {
+    case income:
+        switch (action) {
+        case add_to:
+            IncomeSum += val;
+            IncomesCount++;
+            break;
+        case remove_from:
+            IncomeSum -= val;
+            IncomesCount--;
+            break;
+        default:
+            break;
+        }
+        break;
+    case outcome:
+        switch (action) {
+        case add_to:
+            OutcomeSum += val;
+            OutcomesCount++;
+            break;
+        case remove_from:
+            OutcomeSum -= val;
+            OutcomesCount--;
+            break;
+        default:
+            break;
+            break;
+        }
+    default:
+        //to be used in the future with more types
+        break;
+    }
+
+}

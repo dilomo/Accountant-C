@@ -1,0 +1,253 @@
+#include "Acc.Xml.Writer.h"
+
+static void ident(XmlWriter* writer);
+static void close_brace(XmlWriter* writer);
+
+/* Public functions */
+
+bool InitXmlWriter(XmlWriter* writer, char * filename)
+{
+    FILE * file = fopen(filename, "w");
+
+    if (file == NULL) return false;
+
+    writer->xml_file = file;
+    writer->ident_char = '\0';
+    writer->identation = 0;
+    writer->depth = 0;
+    writer->use_formatting = false;
+    writer->open_node = false;
+    writer->has_value = false;
+    writer->open_brace = false;
+    writer->one_row = false;
+
+    InitializeStack(&writer->opened_nodes);
+    return true;
+}
+
+bool CloseXmlWriter(XmlWriter* writer)
+{
+    writer->ident_char = '\0';
+    writer->identation = 0;
+    writer->depth = 0;
+    writer->use_formatting = false;
+
+    if (writer->open_node)
+        WriteEndElem(writer);
+
+    writer->open_node = false;
+    writer->has_value = false;
+    writer->open_brace = false;
+    writer->one_row = false;
+
+    EmptyTheStack(&writer->opened_nodes);
+
+    if (writer->xml_file != NULL)
+        return (!fclose(writer->xml_file));
+    else return true;
+}
+
+bool WriteStartDoc(XmlWriter* writer)
+{
+    FILE * fout = writer->xml_file;
+    if (fout == NULL) return false;
+    /*write xml header with ansi encoding because C supports only this*/
+    fprintf(fout, "<?xml version=\"1.0\" encoding=\"ansi\"?>\n");
+    return true;
+}
+
+bool WriteEndDoc(XmlWriter* writer)
+{
+    /*close all opened elemets*/
+    while (WriteEndElem(writer))
+        ;
+    return true;
+}
+
+bool WriteStartElem(XmlWriter* writer,char * name)
+{
+    FILE * fout = writer->xml_file;
+    if (fout == NULL) return false;
+
+    /*close previousely opened brace*/
+    close_brace(writer);
+
+    ident(writer);
+    fprintf(fout, "<%s", name);
+
+    /*save element's name for WriteEndElem func*/
+    Push(name, &(writer->opened_nodes));
+    writer->open_node = true;
+
+    writer->open_brace = true;
+    writer->has_value = false;
+    writer->depth += 1;
+    return true;
+}
+
+bool WriteEndElem(XmlWriter* writer)
+{
+    FILE * fout = writer->xml_file;
+    if (fout == NULL) return false;
+
+    writer->depth -= 1;
+    StackItem itm;
+
+    if (writer->open_node){
+        if (writer->has_value){
+            ident(writer);
+
+            if (Pop(&itm, &writer->opened_nodes))
+                fprintf(fout, "</%s>\n", itm);
+            else return false;
+        }
+        else {
+            fprintf(fout, "/>\n");
+            /*remove element name to go to the next level*/
+            Pop(&itm, &writer->opened_nodes);
+        }
+        writer->open_brace = false;
+        writer->open_node = false;
+        writer->has_value = false;
+        writer->one_row = false;
+    } else {
+        ident(writer);
+        /*clse other nodes that are previously opened*/
+        /*read from stack*/
+        if (Pop(&itm, &writer->opened_nodes))
+            fprintf(fout, "</%s>\n", itm);
+        else return false;
+    }
+
+    return true;
+}
+
+bool WriteAttributeString(XmlWriter* writer, char * name, char * value)
+{
+     FILE * fout = writer->xml_file;
+     if (fout == NULL) return false;
+
+     /*if the brace is open write the attribte inside*/
+     if (writer->open_brace) {
+        fprintf(fout, " %s=\"%s\"", name, value);
+     } else return false;
+
+    return true;
+}
+
+bool WriteElementString(XmlWriter* writer, char * name, char * value)
+{
+    FILE * fout = writer->xml_file;
+    if (fout == NULL) return false;
+
+    /*close previousely opened brace*/
+    close_brace(writer);
+    /*move to the apropriate position*/
+    ident(writer);
+
+    fprintf(fout, "<%s>%s</%s>\n",name, value, name);
+
+    writer->has_value = true;
+    return true;
+}
+
+bool WriteValueString(XmlWriter* writer, char * value)
+{
+    FILE * fout = writer->xml_file;
+    if (fout == NULL) return false;
+    /*  one_row should be before close brace because
+        the func uses it
+     */
+    writer->one_row = true;
+
+    close_brace(writer);
+
+    fprintf(fout, "%s",value);
+
+    writer->has_value = true;
+    return true;
+}
+
+bool WriteValueInt(XmlWriter* writer, int value)
+{
+    FILE * fout = writer->xml_file;
+    if (fout == NULL) return false;
+    /*  one_row should be before close brace because
+        the func uses it
+     */
+    writer->one_row = true;
+
+    close_brace(writer);
+
+    fprintf(fout, "%d",value);
+
+    writer->has_value = true;
+    return true;
+}
+
+bool WriteCommentString(XmlWriter* writer, char * comment)
+{
+    /*FIXME: do not intended to be used inside value field <a>val_field</a>*/
+
+    FILE * fout = writer->xml_file;
+    if (fout == NULL) return false;
+
+    close_brace(writer);
+    ident(writer);
+
+    fprintf(fout, "<!-- %s -->\n",comment);
+
+    return true;
+}
+
+bool SetXmlWriterFormatting(XmlWriter* writer, char c, int num)
+{
+    if ( c != '\0' && num > 0 ) {
+        writer->ident_char = c;
+        writer->identation = num;
+        writer->use_formatting = true;
+    } else { /*disable format*/
+        writer->ident_char = '\0';
+        writer->identation = 0;
+        writer->use_formatting = false;
+    }
+    return true;
+}
+
+bool IsClosed(XmlWriter* writer)
+{
+    if (writer->xml_file == NULL)
+        return true;
+    else
+        return false;
+}
+
+/* Private functions */
+
+static void ident(XmlWriter* writer)
+{
+    FILE * fout = writer->xml_file;
+    if (fout == NULL) return;
+
+    if (writer->use_formatting && writer->one_row == false) {
+                int i, j;
+                for (i=0; i < writer->depth; i++)
+                    for (j=0; j < writer->identation; j++)
+                        fprintf(fout, "%c",writer->ident_char);
+    }
+}
+
+static void close_brace(XmlWriter* writer)
+{
+    FILE * fout = writer->xml_file;
+    if (fout == NULL) return;
+
+    if (writer->open_brace) {
+        if (writer->one_row)
+            fprintf(fout, ">");
+        else
+            fprintf(fout, ">\n");
+
+        writer->open_brace = false;
+    }
+}

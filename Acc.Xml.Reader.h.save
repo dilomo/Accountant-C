@@ -1,0 +1,32 @@
+#ifndef ACC_XML_READER_H_INCLUDED
+#define ACC_XML_READER_H_INCLUDED
+
+#include "Acc.Main.h"
+#include "Acc.Xml.h"
+
+enum xml_node_type {
+    Element,
+    Root,
+    None
+};
+typedef enum xml_node_type NodeType;
+
+struct xml_reader {
+    FILE * xml_file;
+    NodeType node_t;
+    char name[MAX_XML_STR];
+    char value[MAX_XML_STR];
+    int attr_count;
+    bool has_value;
+};
+typedef struct xml_reader * XmlReader;
+
+bool InitXmlReader(XmlReader reader, FILE * file);
+bool InitXmlReader_fname(XmlReader reader, char * filename);
+
+bool Read(XmlReader reader);
+
+char * ReadElementString(XmlReader reader);
+char * GetAttribure(XmlReader reader, int index);
+
+#endif // ACC_XML_READER_H_INCLUDED

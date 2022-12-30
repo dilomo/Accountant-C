@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Accountant.exe" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Accountant" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="mingw32_compiler" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-pg" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-pg" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Accountant" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-march=prescott" />
+					<Add option="-Os" />
+					<Add option="-O3" />
+				</Compiler>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-march=i586" />
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="Acc.LinkedList.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Acc.LinkedList.h" />
+		<Unit filename="Acc.Main.h" />
+		<Unit filename="Acc.Sort.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Acc.Sort.h" />
+		<Unit filename="Acc.StringStack.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Acc.StringStack.h" />
+		<Unit filename="Acc.Xml.Reader.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Acc.Xml.Reader.h" />
+		<Unit filename="Acc.Xml.Writer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Acc.Xml.Writer.h" />
+		<Unit filename="Acc.Xml.h" />
+		<Unit filename="CList.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="CList.h" />
+		<Unit filename="libstd.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="libstd.h" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<AutoVersioning>
+				<Scheme minor_max="10" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />
+				<Settings autoincrement="1" date_declarations="1" do_auto_increment="0" ask_to_increment="1" language="C" svn="0" svn_directory="" header_path="Acc.Version.h" />
+				<Changes_Log show_changes_editor="1" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
+			</AutoVersioning>
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

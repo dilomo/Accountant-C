@@ -1,0 +1,127 @@
+/* CList.c -- functions supporting list operations */
+#include <stdio.h>
+#include <stdlib.h>
+#include "CList.h"
+
+/* local function prototype */
+static void CopyToNode(CItem item, CNode * pnode);
+
+/* interface functions   */
+
+/* set the list to empty */
+void InitializeListPtr(CList * plist)
+{
+    *plist = NULL;
+}
+/* returns true if list is empty */
+bool ListIsEmpty(const CList * plist)
+{
+    if (*plist == NULL)
+        return true;
+    else
+        return false;
+}
+/* returns true if list is full */
+bool ListIsFull(const CList * plist)
+{
+    CNode * pt;
+    bool full;
+    pt = (CNode *) malloc(sizeof(CNode));
+    if (pt == NULL)
+        full = true;
+    else
+        full = false;
+    free(pt);
+    return full;
+}
+/* returns number of nodes */
+unsigned int ListItemCount(const CList * plist)
+{
+    unsigned int count = 0;
+    CNode * pnode = *plist;    /* set to start of list */
+    while (pnode != NULL)
+    {
+        ++count;
+        pnode = pnode->next;  /* set to next node     */
+    }
+    return count;
+}
+/* creates node to hold item and adds it to the end of */
+/* the list pointed to by plist (slow implementation)  */
+bool AddItem(CItem item, CList * plist)
+{
+    CNode * pnew;
+    CNode * scan = *plist;
+    pnew = (CNode *) malloc(sizeof(CNode));
+    if (pnew == NULL)
+        return false;     /* quit function on failure  */
+    CopyToNode(item, pnew);
+    pnew->next = NULL;
+    if (scan == NULL)          /* empty list, so place */
+        *plist = pnew;         /* pnew at head of list */
+    else
+    {
+        while (scan->next != NULL)
+            scan = scan->next;  /* find end of list    */
+        scan->next = pnew;      /* add pnew to end     */
+    }
+    return true;
+}
+/* visit each node and execute function pointed to by pfun */
+void Traverse  (const CList * plist, void (* pfun)(CItem item) )
+{
+    CNode * pnode = *plist;    /* set to start of list   */
+    while (pnode != NULL)
+    {
+        (*pfun)(pnode->item); /* apply function to item */
+        pnode = pnode->next;  /* advance to next item   */
+    }
+}
+/* free memory allocated by malloc() */
+/* set list pointer to NULL          */
+void EmptyTheList(CList * plist)
+{
+    CNode * psave;
+    while (*plist != NULL)
+    {
+        psave = (*plist)->next; /* save address of next node */
+        free(*plist);           /* free current node         */
+        *plist = psave;         /* advance to next node      */
+    }
+}
+
+bool ContainsItem(const CItem item, const CList *plist, int (* pfun)(const CItem itemA, const CItem itemB))
+{
+    CNode * pnode = *plist;    /* set to start of list   */
+    while (pnode != NULL)
+    {
+        if ( (*pfun)(item, pnode->item) == 0 ) {/* compare items */
+            return true;
+            break;
+            }
+        pnode = pnode->next;  /* advance to next item   */
+    }
+    return false;
+}
+
+CItem * FindItem(const CItem item, const CList *plist, int (* pfun)(const CItem itemA, const CItem itemB))
+{
+    CNode * pnode = *plist;    /* set to start of list   */
+    while (pnode != NULL)
+    {
+        if ( (*pfun)(item, pnode->item) == 0 ) {/* compare items */
+            return &(pnode->item);
+            break;
+            }
+        pnode = pnode->next;  /* advance to next item   */
+    }
+    return NULL;
+}
+
+/* local function definition  */
+
+/* copies an item into a node */
+static void CopyToNode(CItem item, CNode * pnode)
+{
+    pnode->item = item;  /* structure copy */
+}

@@ -1,0 +1,187 @@
+# depslib dependency file v1.0
+1201368497 source:/home/toni/Documents/CFiles/Accountant/Accountant/alist.c
+	<stdlib.h>
+	<string.h>
+	<stdarg.h>
+	"Cacc.h"
+
+1201548827 /home/toni/Documents/CFiles/Accountant/Accountant/Cacc.h
+	<stdio.h>
+	"libstd.h"
+
+1204472642 /home/toni/Documents/CFiles/Accountant/Accountant/libstd.h
+	<ctype.h>
+	<stdlib.h>
+	<string.h>
+
+1203619352 source:/home/toni/Documents/CFiles/Accountant/Accountant/libstd.c
+	<stdio.h>
+	<string.h>
+	<ctype.h>
+	<time.h>
+	"libstd.h"
+
+1204231023 source:/home/toni/Documents/CFiles/Accountant/Accountant/main.c
+	"Acc.Main.h"
+	"Acc.StringStack.h"
+	"Acc.LinkedList.h"
+	"Acc.Sort.h"
+	"Acc.Xml.h"
+
+1200321779 source:/home/toni/Documents/CFiles/Accountant/Accountant/stringlist.c
+	"stringlist.h"
+
+1200328173 /home/toni/Documents/CFiles/Accountant/Accountant/stringlist.h
+
+1203350120 /home/toni/Documents/CFiles/Accountant/Accountant/CList.h
+	"Acc.LinkedList.h"
+
+1202413637 source:/home/toni/Documents/CFiles/Accountant/Accountant/CList.c
+	<stdio.h>
+	<stdlib.h>
+	"CList.h"
+
+1203440898 source:/home/toni/Documents/CFiles/Accountant/Accountant/Acc.LinkedList.c
+	<stdlib.h>
+	<string.h>
+	<stdarg.h>
+	"Acc.LinkedList.h"
+
+1203440891 /home/toni/Documents/CFiles/Accountant/Accountant/Acc.LinkedList.h
+	<stdio.h>
+	"libstd.h"
+
+1202409060 /home/toni/Documents/CFiles/Accountant/Accountant/Acc.Sort.h
+	"Acc.Main.h"
+
+1201549421 /home/toni/Documents/CFiles/Accountant/Accountant/Acc.Version.h
+
+1202411403 source:/home/toni/Documents/CFiles/Accountant/Accountant/Acc.Sort.c
+	"Acc.Main.h"
+	"Acc.Sort.h"
+
+1204227725 /home/toni/Documents/CFiles/Accountant/Accountant/Acc.Main.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdarg.h>
+	<time.h>
+	<assert.h>
+	"libstd.h"
+	"CList.h"
+
+1201550871 /home/toni/Documents/CFiles/Accountant/Accountant/main.c
+	"Acc.Main.h"
+
+1204231475 source:/home/toni/Documents/CFiles/Accountant/Accountant/Acc.Xml.Reader.c
+	"Acc.Xml.Reader.h"
+
+1204209081 /home/toni/Documents/CFiles/Accountant/Accountant/Acc.Xml.Reader.h
+	<ctype.h>
+	"Acc.Main.h"
+	"Acc.Xml.h"
+
+1203962143 /home/toni/Documents/CFiles/Accountant/Accountant/Acc.Xml.h
+	"Acc.Xml.Reader.h"
+	"Acc.Xml.Writer.h"
+
+1203877894 /home/toni/Documents/CFiles/Accountant/Accountant/Acc.Xml.Writer.h
+	"Acc.Main.h"
+	"Acc.Xml.h"
+	"Acc.StringStack.h"
+
+1203877958 source:/home/toni/Documents/CFiles/Accountant/Accountant/Acc.Xml.Writer.c
+	"Acc.Xml.Writer.h"
+
+1203441627 source:/home/toni/Documents/CFiles/Accountant/Accountant/Acc.StringCollection.c
+	"Acc.StringCollection.h"
+
+1203441749 /home/toni/Documents/CFiles/Accountant/Accountant/Acc.StringCollection.h
+	"Acc.Main.h"
+
+1203445671 source:/home/toni/Documents/CFiles/Accountant/Accountant/Acc.StringStack.c
+	"Acc.StringStack.h"
+
+1203445407 /home/toni/Documents/CFiles/Accountant/Accountant/Acc.StringStack.h
+	"Acc.Main.h"
+
+1203440898 source:/home/toni/Documents/CFiles/Accountant/Win32 Accountant/Acc.LinkedList.c
+	<stdlib.h>
+	<string.h>
+	<stdarg.h>
+	"Acc.LinkedList.h"
+
+1203440891 /home/toni/Documents/CFiles/Accountant/Win32 Accountant/Acc.LinkedList.h
+	<stdio.h>
+	"libstd.h"
+
+1204486431 /home/toni/Documents/CFiles/Accountant/Win32 Accountant/libstd.h
+	<ctype.h>
+	<stdlib.h>
+	<string.h>
+
+1202411403 source:/home/toni/Documents/CFiles/Accountant/Win32 Accountant/Acc.Sort.c
+	"Acc.Main.h"
+	"Acc.Sort.h"
+
+1204227725 /home/toni/Documents/CFiles/Accountant/Win32 Accountant/Acc.Main.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdarg.h>
+	<time.h>
+	<assert.h>
+	"libstd.h"
+	"CList.h"
+
+1203350120 /home/toni/Documents/CFiles/Accountant/Win32 Accountant/CList.h
+	"Acc.LinkedList.h"
+
+1202409060 /home/toni/Documents/CFiles/Accountant/Win32 Accountant/Acc.Sort.h
+	"Acc.Main.h"
+
+1203445671 source:/home/toni/Documents/CFiles/Accountant/Win32 Accountant/Acc.StringStack.c
+	"Acc.StringStack.h"
+
+1203445407 /home/toni/Documents/CFiles/Accountant/Win32 Accountant/Acc.StringStack.h
+	"Acc.Main.h"
+
+1204231475 source:/home/toni/Documents/CFiles/Accountant/Win32 Accountant/Acc.Xml.Reader.c
+	"Acc.Xml.Reader.h"
+
+1204209081 /home/toni/Documents/CFiles/Accountant/Win32 Accountant/Acc.Xml.Reader.h
+	<ctype.h>
+	"Acc.Main.h"
+	"Acc.Xml.h"
+
+1203962143 /home/toni/Documents/CFiles/Accountant/Win32 Accountant/Acc.Xml.h
+	"Acc.Xml.Reader.h"
+	"Acc.Xml.Writer.h"
+
+1203877894 /home/toni/Documents/CFiles/Accountant/Win32 Accountant/Acc.Xml.Writer.h
+	"Acc.Main.h"
+	"Acc.Xml.h"
+	"Acc.StringStack.h"
+
+1203877958 source:/home/toni/Documents/CFiles/Accountant/Win32 Accountant/Acc.Xml.Writer.c
+	"Acc.Xml.Writer.h"
+
+1202413637 source:/home/toni/Documents/CFiles/Accountant/Win32 Accountant/CList.c
+	<stdio.h>
+	<stdlib.h>
+	"CList.h"
+
+1204486446 source:/home/toni/Documents/CFiles/Accountant/Win32 Accountant/libstd.c
+	<stdio.h>
+	<string.h>
+	<ctype.h>
+	<time.h>
+	"libstd.h"
+
+1204486664 source:/home/toni/Documents/CFiles/Accountant/Win32 Accountant/main.c
+	"Acc.Main.h"
+	"Acc.StringStack.h"
+	"Acc.LinkedList.h"
+	"Acc.Sort.h"
+	"Acc.Xml.h"
+

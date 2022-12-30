@@ -1,0 +1,13 @@
+#ifndef STRINGLIST_H_INCLUDED
+#define STRINGLIST_H_INCLUDED
+
+#define DEFAULT_COUNT 50
+
+/*sets the default behaviour*/
+void InitStringList();
+
+bool AddString(char * strcat);
+bo
+
+
+#endif // ARRAYLIST_H_INCLUDED
